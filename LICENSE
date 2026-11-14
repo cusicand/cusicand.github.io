@@ -1,6 +1,18 @@
 MIT License
 
-Copyright (c) 2023 Diego Cusicanqui
+Copyright (c) 2023-2026 Diego Cusicanqui
+
+The source code of this website (layouts, includes, styles and scripts) is
+derived from AcademicPages (https://github.com/academicpages/academicpages.github.io),
+itself a fork of the Minimal Mistakes Jekyll theme by Michael Rose
+(https://github.com/mmistakes/minimal-mistakes). The first copyright line above
+is the notice carried by AcademicPages; the second covers the modifications
+made for this site.
+
+This license covers the source code only. The content of the site (text,
+publication pages, CV, images) is licensed separately: see README.md.
+Third-party files (Font Awesome, Academicons, jQuery and its plugins) keep the
+licenses stated in their own headers.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
