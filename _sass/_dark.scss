@@ -1,0 +1,553 @@
+/* ==========================================================================
+   DARK MODE
+   Overrides applied when <html data-theme="dark"> (set by the inline script
+   in _includes/head.html and the toggle in assets/js/site-tools.js).
+   The theme's colours are compiled Sass variables, so dark mode re-colours
+   the relevant selectors here instead of swapping variables.
+   ========================================================================== */
+
+$dk-bg              : #16181b;
+$dk-surface         : #22262a;
+$dk-surface-hover   : #2c3136;
+$dk-border          : #33383d;
+$dk-text            : #d0d4d8;
+$dk-text-muted      : #9aa1a7;
+$dk-heading         : #eceff1;
+$dk-link            : #6cb6e8;
+$dk-link-hover      : #9fd0f2;
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  background-color: $dk-bg;
+
+  /* Base
+     ======================================================================== */
+
+  body {
+    color: $dk-text;
+    background-color: $dk-bg;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: $dk-heading;
+  }
+
+  a {
+    color: $dk-link;
+
+    &:hover {
+      color: $dk-link-hover;
+    }
+  }
+
+  ins,
+  abbr[data-original-title] {
+    border-bottom-color: $dk-text;
+  }
+
+  blockquote {
+    border-left-color: $dk-border;
+  }
+
+  hr {
+    border-top-color: $dk-border;
+  }
+
+  kbd,
+  td > code {
+    background-color: $dk-surface;
+    border-color: $dk-border;
+  }
+
+  figcaption {
+    color: $dk-text-muted;
+
+    a {
+      border-bottom-color: $dk-border;
+
+      &:hover {
+        color: $dk-heading;
+        border-bottom-color: $dk-heading;
+      }
+    }
+  }
+
+  /* Code
+     ======================================================================== */
+
+  code,
+  pre,
+  .highlight,
+  div.highlighter-rouge,
+  figure.highlight {
+    background-color: $dk-surface;
+    color: $dk-text;
+  }
+
+  /* Masthead and navigation
+     ======================================================================== */
+
+  .masthead {
+    border-bottom-color: $dk-border;
+  }
+
+  .greedy-nav {
+    background: $dk-bg;
+
+    a {
+      color: $dk-text-muted;
+
+      &:hover {
+        color: $dk-link;
+      }
+    }
+
+    .visible-links li:first-child a {
+      color: $dk-heading;
+    }
+
+    .visible-links a:before {
+      background: $dk-link;
+    }
+
+    .hidden-links {
+      background: $dk-surface;
+      border-color: $dk-border;
+      box-shadow: 0 0 10px rgba(#000, 0.6);
+
+      a:hover {
+        color: $dk-link-hover;
+        background: $dk-surface-hover;
+      }
+
+      &:before {
+        border-color: $dk-border transparent;
+      }
+
+      &:after {
+        border-color: $dk-surface transparent;
+      }
+
+      li {
+        border-bottom-color: $dk-border;
+      }
+    }
+  }
+
+  .pagination {
+    li a {
+      color: $dk-text-muted;
+      border-color: $dk-border;
+
+      &:hover {
+        color: $dk-link-hover;
+      }
+
+      &.disabled {
+        color: $dk-border;
+      }
+    }
+
+    &--pager {
+      color: $dk-text-muted;
+      border-color: $dk-border;
+    }
+  }
+
+  .nav__list .nav__items a {
+    color: $dk-text;
+  }
+
+  .nav__sub-title {
+    border-bottom-color: $dk-border;
+  }
+
+  .toc {
+    color: $dk-text-muted;
+    background-color: $dk-surface;
+    border-color: $dk-border;
+
+    .nav__title {
+      background: $dk-surface-hover;
+      color: $dk-heading;
+    }
+  }
+
+  .toc__menu a {
+    color: $dk-text-muted;
+    border-bottom-color: $dk-border;
+
+    &:hover {
+      color: $dk-heading;
+      background: $dk-surface-hover;
+    }
+  }
+
+  /* Sidebar / author profile
+     ======================================================================== */
+
+  .sidebar {
+    color: $dk-text;
+  }
+
+  .author__avatar img {
+    border-color: $dk-border;
+  }
+
+  .author__urls {
+    background: $dk-surface;
+    border-color: $dk-border;
+
+    &:before {
+      border-color: $dk-border transparent;
+    }
+
+    &:after {
+      border-color: $dk-surface transparent;
+    }
+
+    a {
+      color: $dk-text;
+    }
+
+    @include breakpoint($large) {
+      background: transparent;
+    }
+  }
+
+  .social-icons .fa {
+    color: $dk-text;
+  }
+
+  /* Pages and archives
+     ======================================================================== */
+
+  .page__content h2 {
+    border-bottom-color: $dk-border;
+  }
+
+  .page__meta,
+  .page__date,
+  .archive__subtitle,
+  .footnotes {
+    color: $dk-text-muted;
+  }
+
+  .archive__subtitle,
+  .page__share,
+  .page__related,
+  .page__comments-title,
+  .feature__wrapper {
+    border-color: $dk-border;
+  }
+
+  .archive__item-title a {
+    color: $dk-heading;
+  }
+
+  .page__taxonomy-item {
+    border-color: $dk-border;
+  }
+
+  .page__comments-form {
+    background: $dk-surface;
+  }
+
+  .page__footer {
+    color: $dk-text-muted;
+    background-color: $dk-surface;
+    border-top-color: $dk-border;
+
+    .fal {
+      color: $dk-text-muted;
+    }
+  }
+
+  details summary {
+    color: $dk-text;
+  }
+
+  /* Tables, notices, buttons, misc
+     ======================================================================== */
+
+  table,
+  th,
+  td {
+    border-color: $dk-border;
+  }
+
+  thead {
+    background-color: $dk-surface;
+    border-bottom-color: $dk-border;
+  }
+
+  .notice,
+  .notice--primary,
+  .notice--info,
+  .notice--warning,
+  .notice--success,
+  .notice--danger {
+    background-color: $dk-surface;
+    color: $dk-text;
+  }
+
+  .btn--inverse {
+    color: $dk-text !important;
+    background-color: $dk-surface;
+    border-color: $dk-border;
+  }
+
+  .well,
+  .modal {
+    background-color: $dk-surface;
+    border-color: $dk-border;
+  }
+
+  .screen-reader-shortcut:focus {
+    background: $dk-surface;
+  }
+
+  input,
+  textarea,
+  select {
+    color: $dk-text;
+    background-color: $dk-surface;
+    border-color: $dk-border;
+  }
+
+  /* Custom parts (see _custom.scss)
+     ======================================================================== */
+
+  .pub-year {
+    color: $dk-text-muted;
+    border-top-color: $dk-border;
+  }
+
+  .bibtex-box pre {
+    background-color: $dk-surface;
+    border-color: $dk-border;
+    color: $dk-text;
+  }
+
+  .bibtex-copy {
+    color: $dk-text;
+    background-color: $dk-surface-hover;
+    border-color: $dk-border;
+
+    &:hover {
+      background-color: $dk-border;
+    }
+  }
+
+  .overlay {
+    background-color: #000;
+  }
+
+  .masthead__tools button {
+    color: $dk-text-muted;
+
+    &:hover,
+    &:focus-visible {
+      color: $dk-link;
+    }
+  }
+
+  .masthead__tools kbd {
+    color: $dk-text-muted;
+  }
+
+  .hashtags {
+    li { color: $dk-text; }
+    li + li::before { color: $dk-text-muted; }
+    .fa-hashtag { color: $dk-link; }
+    a:hover, a:focus-visible { color: $dk-link; }
+  }
+
+  .hashtags--lines {
+    border-color: $dk-border;
+  }
+
+  .lang-menu__toggle {
+    color: $dk-text-muted;
+
+    &:hover,
+    &:focus-visible {
+      color: $dk-link;
+    }
+  }
+
+  .lang-menu[open] > .lang-menu__toggle {
+    color: $dk-link;
+  }
+
+  .lang-menu__list {
+    background: $dk-surface;
+    border-color: $dk-border;
+    box-shadow: 0 10px 30px rgba(#000, 0.5);
+
+    a {
+      color: $dk-text;
+
+      &:hover,
+      &:focus-visible {
+        color: $dk-link;
+        background: $dk-surface-hover;
+      }
+
+      &.is-current::after {
+        color: $dk-link;
+      }
+    }
+  }
+
+  .search-modal {
+    &__backdrop {
+      background: rgba(#000, 0.7);
+    }
+
+    &__dialog {
+      background: $dk-surface;
+      border-color: $dk-border;
+      box-shadow: 0 10px 40px rgba(#000, 0.6);
+    }
+
+    &__input {
+      color: $dk-heading;
+      background: transparent;
+    }
+
+    &__header,
+    &__footer {
+      border-color: $dk-border;
+    }
+
+    &__footer,
+    &__status,
+    &__close,
+    &__type {
+      color: $dk-text-muted;
+    }
+
+    &__type {
+      background: $dk-surface-hover;
+    }
+
+    &__title {
+      color: $dk-heading;
+    }
+
+    &__snippet {
+      color: $dk-text-muted;
+    }
+
+    &__item.is-active > a {
+      background: $dk-surface-hover;
+    }
+
+    mark {
+      color: $dk-heading;
+      background: rgba($dk-link, 0.35);
+    }
+  }
+}
+
+/* Home page (about) */
+html[data-theme="dark"] {
+  .page.about h2,
+  .about__news th,
+  .about__news td,
+  .about__news tr,
+  .about__latest li {
+    border-color: $dk-border;
+  }
+
+  .about__subtitle,
+  .about__news th,
+  .about__latest-date,
+  .about__latest em,
+  .about__social-note {
+    color: $dk-text-muted;
+  }
+
+  .about__photo img {
+    box-shadow: 0 4px 16px rgba(#000, 0.5);
+  }
+
+  .about__social a {
+    color: $dk-text-muted;
+
+    &:hover,
+    &:focus-visible {
+      color: $dk-link;
+    }
+  }
+}
+
+/* CV page */
+html[data-theme="dark"] {
+  .page__title-pdf,
+  .cv-timeline__location,
+  .cv-timeline__institution,
+  .cv-note {
+    color: $dk-text-muted;
+  }
+
+  .page__title-pdf:hover {
+    color: $dk-link;
+  }
+
+  .cv-card {
+    background: $dk-surface;
+    border-color: $dk-border;
+    box-shadow: none;
+  }
+
+  .cv-card__title i {
+    color: $dk-link;
+  }
+
+  .cv-badge {
+    color: #fff;
+    background-color: #2f78ad;
+  }
+
+  .cv-timeline > li,
+  .cv-map th,
+  .cv-map td {
+    border-color: $dk-border;
+  }
+
+  .cv-tag {
+    background: $dk-surface-hover;
+    border-color: $dk-border;
+  }
+
+  .cv-dot {
+    background: $dk-surface-hover;
+    border-color: $dk-border;
+
+    &.is-on {
+      background: $dk-link;
+      border-color: $dk-link;
+    }
+  }
+}
+
+/* Research page */
+html[data-theme="dark"] {
+  .research-topic {
+    border-top-color: $dk-border;
+  }
+
+  .research-topic__img figcaption {
+    color: $dk-text-muted;
+  }
+}
+
+/* Teaching page: workshop boxes */
+html[data-theme="dark"] {
+  .cv-timeline__duration,
+  .workshop-card__note {
+    color: $dk-text-muted;
+  }
+}

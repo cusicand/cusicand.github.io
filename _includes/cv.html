@@ -1,0 +1,122 @@
+{% assign tr = site.data.i18n[page.lang] | default: site.data.i18n.en %}
+{% comment %}
+  al-folio-style CV: one box per section of _data/cv/<lang>.yml (see the header of that file for the format).
+  The "publications" section lists first-author papers from _publications/ automatically.
+{% endcomment %}
+{% include base_path %}
+
+<div class="cv">
+{% assign cv_data = site.data.cv[page.lang] | default: site.data.cv.en %}
+{% for section in cv_data %}
+  <section class="cv-card" id="cv-{{ section.title | slugify }}">
+    <h2 class="cv-card__title">{% if section.icon %}<i class="fas fa-fw {{ section.icon }}" aria-hidden="true"></i> {% endif %}{{ section.title }}</h2>
+
+    {% case section.type %}
+
+    {% when "map" %}
+      <table class="cv-map">
+        <tbody>
+          {% for row in section.contents %}
+            <tr>
+              <th scope="row">{{ row.name }}</th>
+              <td>{{ row.value | replace: "|", "&#124;" | markdownify | remove: "<p>" | remove: "</p>" }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+    {% when "text" %}
+      <div class="cv-text">{{ section.contents | replace: "|", "&#124;" | markdownify }}</div>
+
+    {% when "time_table" %}
+      <ul class="cv-timeline">
+        {% for item in section.contents %}
+          <li>
+            <div class="cv-timeline__when">
+              {% if item.year %}<span class="cv-badge">{{ item.year }}</span>{% endif %}
+              {% if item.location %}<span class="cv-timeline__location"><i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i>{{ item.location }}</span>{% endif %}
+            </div>
+            <div class="cv-timeline__what">
+              <h3 class="cv-timeline__title">{{ item.title | replace: "|", "&#124;" | markdownify | remove: "<p>" | remove: "</p>" }}</h3>
+              {% if item.institution %}<p class="cv-timeline__institution">{{ item.institution | replace: "|", "&#124;" | markdownify | remove: "<p>" | remove: "</p>" }}</p>{% endif %}
+              {% if item.description %}
+                <ul class="cv-timeline__description">
+                  {% for d in item.description %}<li>{{ d | replace: "|", "&#124;" | markdownify | remove: "<p>" | remove: "</p>" }}</li>{% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+
+    {% when "list" %}
+      <ul class="cv-list">
+        {% for item in section.contents %}<li>{{ item | replace: "|", "&#124;" | markdownify | remove: "<p>" | remove: "</p>" }}</li>{% endfor %}
+      </ul>
+
+    {% when "skills" %}
+      <table class="cv-map">
+        <tbody>
+          {% for group in section.contents %}
+            <tr>
+              <th scope="row">{{ group.name }}</th>
+              <td><span class="cv-tags">{% for s in group.items %}<span class="cv-tag">{{ s }}</span>{% endfor %}</span></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+    {% when "languages" %}
+      <table class="cv-map">
+        <tbody>
+          {% for lang in section.contents %}
+            <tr>
+              <th scope="row">{{ lang.name }}</th>
+              <td>
+                <span class="cv-dots" title="{{ lang.level }} / 5">
+                  {% for i in (1..5) %}<span class="cv-dot{% if i <= lang.level %} is-on{% endif %}"></span>{% endfor %}
+                </span>
+                <span class="sr-only">{{ lang.level }} out of 5</span>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+    {% when "table" %}
+      <div class="cv-table-wrap">
+        <table class="cv-table">
+          <thead>
+            <tr>{% for col in section.columns %}<th scope="col">{{ col }}</th>{% endfor %}</tr>
+          </thead>
+          <tbody>
+            {% for row in section.rows %}
+              <tr>{% for cell in row %}<td>{{ cell }}</td>{% endfor %}</tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+    {% when "publications" %}
+      {% assign pub_url = "/publications/" %}{% for l in site.data.i18n.languages %}{% if l.code == page.lang and l.code != site.default_lang %}{% assign pub_url = l.home | append: "publications/" %}{% endif %}{% endfor %}
+      {% assign pub_href = base_path | append: pub_url %}<p class="cv-note">{{ tr.first_author_note | replace: "%url%", pub_href }}</p>
+      {% assign pubs = site.publications | sort: "date" | reverse %}
+      <ul class="cv-timeline">
+        {% for pub in pubs %}
+          {% assign cite_start = pub.citation | slice: 0, 13 %}
+          {% if cite_start == "<b>Cusicanqui" %}
+            <li>
+              <div class="cv-timeline__when"><span class="cv-badge">{{ pub.date | date: "%Y" }}</span></div>
+              <div class="cv-timeline__what">
+                <p class="cv-pub">{{ pub.citation }}</p>
+                {% if pub.link %}<a class="cv-pub__link" href="{{ pub.link | strip }}" title="{{ tr.article_doi }}"><i class="fas fa-fw fa-link" aria-hidden="true"></i> {{ pub.link | strip | remove: "https://" | remove: "http://" }}</a>{% endif %}
+              </div>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+
+    {% endcase %}
+  </section>
+{% endfor %}
+</div>

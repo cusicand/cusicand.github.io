@@ -1,0 +1,37 @@
+{% include base_path %}
+{% assign tr = site.data.i18n[page.lang] | default: site.data.i18n.en %}
+{% assign nav = site.data.navigation[page.lang] | default: site.data.navigation.main %}
+{% assign lang_home = "/" %}{% for l in site.data.i18n.languages %}{% if l.code == page.lang %}{% assign lang_home = l.home %}{% endif %}{% endfor %}
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg"><a href="{{ base_path }}{{ lang_home }}">{{ site.title }}</a></li>
+          {% for link in nav %}
+            {% if link.url contains 'http' %}
+              {% assign domain = '' %}
+              {% else %}
+              {% assign domain = base_path %}
+            {% endif %}
+            <li class="masthead__menu-item"><a href="{{ domain }}{{ link.url }}">{{ link.title }}</a></li>
+          {% endfor %}
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+      <div class="masthead__tools">
+        {% include lang-switcher.html %}
+        <button type="button" class="search-open" aria-label="{{ tr.search_title }}" title="{{ tr.search_title }}">
+          <i class="fas fa-search" aria-hidden="true"></i>
+          <kbd class="search-open__hint">Ctrl K</kbd>
+        </button>
+        <button type="button" class="theme-toggle" aria-label="{{ tr.theme_toggle }}" title="{{ tr.theme_toggle }}">
+          <i class="fas fa-moon theme-toggle__moon" aria-hidden="true"></i>
+          <i class="fas fa-sun theme-toggle__sun" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+---
+layout: default
+---
+{% assign tr = site.data.i18n[page.lang] | default: site.data.i18n.en %}
+{% if page.header.overlay_color or page.header.overlay_image or page.header.image %}
+  {% include page__hero.html %}
+{% endif %}
+
+{% if page.url != "/" and site.breadcrumbs %}
+  {% unless paginator %}
+    {% include breadcrumbs.html %}
+  {% endunless %}
+{% endif %}
+
+<div id="main" role="main">
+  {% include sidebar.html %}
+
+  <div class="archive">
+    {% unless page.header.overlay_color or page.header.overlay_image %}
+      <h1 class="page__title">{{ page.title }}{% if page.pdfs %}{% include base_path %}<span class="page__title-pdfs">{% assign cur = page.lang | upcase %}{% for f in page.pdfs %}{% if f.label == cur %}<a class="page__title-pdf" href="{{ base_path }}{{ f.url }}" title="{{ tr.download_pdf | replace: '%title%', page.title | replace: '%label%', f.label }}"><i class="fas fa-file-pdf" aria-hidden="true"></i><span class="page__title-pdf-label">{{ f.label }}</span></a>{% endif %}{% endfor %}{% for f in page.pdfs %}{% unless f.label == cur %}<a class="page__title-pdf" href="{{ base_path }}{{ f.url }}" title="{{ tr.download_pdf | replace: '%title%', page.title | replace: '%label%', f.label }}"><i class="fas fa-file-pdf" aria-hidden="true"></i><span class="page__title-pdf-label">{{ f.label }}</span></a>{% endunless %}{% endfor %}</span>{% elsif page.pdf %}{% include base_path %}<a class="page__title-pdf" href="{{ base_path }}{{ page.pdf }}" title="Download {{ page.title }} (PDF)"><i class="fas fa-file-pdf" aria-hidden="true"></i><span class="sr-only">Download {{ page.title }} (PDF)</span></a>{% endif %}</h1>
+    {% endunless %}
+    {{ content }}
+  </div>
+</div>

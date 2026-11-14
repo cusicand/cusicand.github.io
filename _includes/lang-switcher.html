@@ -1,0 +1,21 @@
+{% comment %}
+  Language menu: Language Icon button that opens a drop-down (English · Español · Français).
+  Native <details>, so it works without JS; assets/js/site-tools.js closes it on outside click / Escape.
+  Each link goes to the page with the same `ref` in that language, or to that language's home page
+  when the page has no translation (e.g. paper pages).
+{% endcomment %}
+{% assign tr = site.data.i18n[page.lang] | default: site.data.i18n.en %}
+{% assign current_label = "EN" %}{% for l in site.data.i18n.languages %}{% if l.code == page.lang %}{% assign current_label = l.label %}{% endif %}{% endfor %}
+<details class="lang-menu">
+  <summary class="lang-menu__toggle" aria-label="{{ tr.lang_switch }}" title="{{ tr.lang_switch }}">
+    {% include icons/language.svg %}<span class="lang-menu__code">{{ current_label }}</span>
+  </summary>
+  <ul class="lang-menu__list">
+    {% for l in site.data.i18n.languages %}
+      {% assign target = nil %}
+      {% if page.ref %}{% assign target = site.pages | where: "ref", page.ref | where: "lang", l.code | first %}{% endif %}
+      {% if target %}{% assign href = target.url %}{% elsif l.code == page.lang %}{% assign href = page.url %}{% else %}{% assign href = l.home %}{% endif %}
+      <li><a href="{{ base_path }}{{ href }}" hreflang="{{ l.code }}" lang="{{ l.code }}"{% if l.code == page.lang %} class="is-current" aria-current="true"{% endif %}>{{ l.name }}</a></li>
+    {% endfor %}
+  </ul>
+</details>

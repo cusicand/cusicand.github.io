@@ -1,0 +1,4 @@
+{% comment %}
+  Date in the page language: {% include localized-date.html date=some_date %}
+  Format (%m% %d% %y%) and month names come from _data/i18n.yml (en: "Mar 10, 2026", es: "10 mar. 2026", fr: "10 mars 2026").
+{% endcomment %}{% assign _tr = site.data.i18n[page.lang] | default: site.data.i18n.en %}{% assign _mi = include.date | date: "%-m" | minus: 1 %}{% assign _m = _tr.months[_mi] %}{% assign _d = include.date | date: "%-d" %}{% assign _y = include.date | date: "%Y" %}{{ _tr.date_format | replace: "%m%", _m | replace: "%d%", _d | replace: "%y%", _y }}

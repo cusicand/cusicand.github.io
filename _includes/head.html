@@ -1,0 +1,42 @@
+{% include base_path %}
+
+<meta charset="utf-8">
+
+<script>
+  /* Apply the saved (or system) colour theme before the page paints, to avoid a flash.
+     Only block comments here: the production HTML compressor joins lines. */
+  (function () {
+    var theme = null;
+    try { theme = localStorage.getItem('theme'); } catch (e) {}
+    if (theme !== 'dark' && theme !== 'light') {
+      theme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
+<meta name="color-scheme" content="light dark">
+
+{% include seo.html %}
+
+{% comment %} Language versions of this page (pages linked by the same `ref`) {% endcomment %}
+{% if page.ref %}{% for l in site.data.i18n.languages %}{% assign alt = site.pages | where: "ref", page.ref | where: "lang", l.code | first %}{% if alt %}
+<link rel="alternate" hreflang="{{ l.code }}" href="{{ base_path }}{{ alt.url }}">{% if l.code == site.default_lang %}
+<link rel="alternate" hreflang="x-default" href="{{ base_path }}{{ alt.url }}">{% endif %}{% endif %}{% endfor %}{% endif %}
+
+<meta name="GPTBot" content="noindex,nofollow">
+
+<link href="{% if site.atom_feed.path %}{{ site.atom_feed.path }}{% else %}{{ base_path }}/feed.xml{% endif %}" type="application/atom+xml" rel="alternate" title="{{ site.title }} Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="{{ base_path }}/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">

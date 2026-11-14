@@ -1,0 +1,24 @@
+{% assign tr = site.data.i18n[page.lang] | default: site.data.i18n.en %}
+<div class="search-modal" id="search-modal" hidden
+     data-lang="{{ page.lang }}"
+     data-t-loading="{{ tr.search_loading }}"
+     data-t-unavailable="{{ tr.search_unavailable }}"
+     data-t-hint="{{ tr.search_hint }}"
+     data-t-none="{{ tr.search_none }}"
+     data-t-search="{{ tr.search }}">
+  <div class="search-modal__backdrop" data-search-close></div>
+  <div class="search-modal__dialog" role="dialog" aria-modal="true" aria-label="{{ tr.search_dialog }}">
+    <div class="search-modal__header">
+      <i class="fas fa-search" aria-hidden="true"></i>
+      <input type="search" class="search-modal__input" id="search-input" placeholder="{{ tr.search_placeholder }}" autocomplete="off" spellcheck="false" aria-controls="search-results">
+      <button type="button" class="search-modal__close" data-search-close aria-label="{{ tr.search_close }}">Esc</button>
+    </div>
+    <p class="search-modal__status" id="search-status" aria-live="polite"></p>
+    <ul class="search-modal__results" id="search-results" role="listbox"></ul>
+    <div class="search-modal__footer">
+      <span><kbd>↑</kbd> <kbd>↓</kbd> {{ tr.search_move }}</span>
+      <span><kbd>Enter</kbd> {{ tr.search_open }}</span>
+      <span><kbd>Esc</kbd> {{ tr.search_esc }}</span>
+    </div>
+  </div>
+</div>

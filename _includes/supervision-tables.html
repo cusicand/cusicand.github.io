@@ -1,0 +1,18 @@
+{% comment %}
+  Supervision tables from _data/supervision/<lang>.yml (GENERATED from _cv/data/students.yaml by `make cv`).
+{% endcomment %}
+{% assign sup_data = site.data.supervision[page.lang] | default: site.data.supervision.en %}
+{% for group in sup_data %}
+<h2 id="{{ group.title | slugify }}">{{ group.title }}</h2>
+<div class="cv-table-wrap">
+  <table>
+    <thead>
+      <tr>{% for col in group.columns %}<th scope="col">{{ col }}</th>{% endfor %}</tr>
+    </thead>
+    <tbody>
+      {% for row in group.rows %}<tr>{% for cell in row %}<td>{{ cell }}</td>{% endfor %}</tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endfor %}

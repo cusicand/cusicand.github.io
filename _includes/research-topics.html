@@ -1,0 +1,23 @@
+{% assign tr = site.data.i18n[page.lang] | default: site.data.i18n.en %}
+{% comment %}
+  Research topics as "text | small image", from the `topics:` list in _pages/research.md.
+  Topics without an image use the full width.
+{% endcomment %}
+{% include base_path %}
+{% for topic in page.topics %}
+  <section class="research-topic{% unless topic.image %} research-topic--no-image{% endunless %}" id="{{ topic.title | slugify }}">
+    <div class="research-topic__text">
+      <h2>{{ topic.title }}</h2>
+      {{ topic.text | markdownify }}
+      {% if topic.link %}<p class="research-topic__more"><a href="{{ base_path }}{{ topic.link }}">{{ tr.read_more }} &rarr;</a></p>{% endif %}
+    </div>
+    {% if topic.image %}
+      <figure class="research-topic__img">
+        <a href="{{ base_path }}{{ topic.image_full | default: topic.image }}" title="{{ tr.open_image }}">
+          <img src="{{ base_path }}{{ topic.image }}" alt="{{ topic.caption | default: topic.title | escape }}" loading="lazy">
+        </a>
+        {% if topic.caption %}<figcaption>{{ topic.caption }}</figcaption>{% endif %}
+      </figure>
+    {% endif %}
+  </section>
+{% endfor %}

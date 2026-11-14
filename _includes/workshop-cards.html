@@ -1,0 +1,30 @@
+{% assign tr = site.data.i18n[page.lang] | default: site.data.i18n.en %}
+{% comment %}
+  International workshops as CV-style boxes, from _data/workshops/<lang>.yml (GENERATED from _cv/data/teaching.yaml by `make cv`).
+  Reuses the CV styles (.cv-card, .cv-timeline, .cv-badge).
+{% endcomment %}
+{% assign ws_data = site.data.workshops[page.lang] | default: site.data.workshops.en %}
+{% for w in ws_data %}
+  <section class="cv-card workshop-card">
+    <ul class="cv-timeline">
+      <li>
+        <div class="cv-timeline__when">
+          {% if w.year %}<span class="cv-badge">{{ w.year }}</span>{% endif %}
+          {% if w.duration %}<span class="cv-timeline__duration"><i class="fas fa-fw fa-clock" aria-hidden="true"></i>{{ w.duration }}</span>{% endif %}
+          {% if w.location %}<span class="cv-timeline__location"><i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i>{{ w.location }}</span>{% endif %}
+        </div>
+        <div class="cv-timeline__what">
+          <h3 class="cv-timeline__title">{{ w.title | replace: "|", "&#124;" | markdownify | remove: "<p>" | remove: "</p>" }}</h3>
+          {% if w.institution %}<p class="cv-timeline__institution">{{ w.institution | replace: "|", "&#124;" | markdownify | remove: "<p>" | remove: "</p>" }}</p>{% endif %}
+          {% if w.description %}
+            <ul class="cv-timeline__description">
+              {% for d in w.description %}<li>{{ d | replace: "|", "&#124;" | markdownify | remove: "<p>" | remove: "</p>" }}</li>{% endfor %}
+            </ul>
+          {% endif %}
+          {% if w.note %}<p class="workshop-card__note">{{ w.note | markdownify | remove: "<p>" | remove: "</p>" }}</p>{% endif %}
+          {% if w.link %}<p class="workshop-card__link"><a href="{{ w.link }}"><i class="fas fa-fw fa-link" aria-hidden="true"></i> {{ w.link_text | default: tr.more_information }}</a></p>{% endif %}
+        </div>
+      </li>
+    </ul>
+  </section>
+{% endfor %}

@@ -1,0 +1,28 @@
+{% comment %}
+  Hashtag list:  # Cryosphere  •  # Remote sensing  •  ...
+
+  Parameters:
+    tags         array of strings (required), e.g. page.hashtags or page.tags
+    style        "plain" (default: inline, no lines; About page)
+                 "lines" (centred between two horizontal lines, al-folio blog style)
+    link_prefix  optional; when set, each tag links to link_prefix + slugified tag
+                 (e.g. link_prefix="/posts/#" -> /posts/#remote-sensing)
+
+  Examples:
+    {% include hashtags.html tags=page.hashtags %}
+    {% include hashtags.html tags=site.tags style="lines" link_prefix="/posts/#" %}
+{% endcomment %}
+{% include base_path %}
+{% if include.tags and include.tags.size > 0 %}
+<div class="hashtags{% if include.style == 'lines' %} hashtags--lines{% endif %}">
+  <ul>
+    {% for tag in include.tags %}
+      {% if tag.first %}{% assign tag_name = tag.first %}{% else %}{% assign tag_name = tag %}{% endif %}
+      <li>
+        <i class="fas fa-hashtag" aria-hidden="true"></i>
+        {%- if include.link_prefix %}<a href="{{ base_path }}{{ include.link_prefix }}{{ tag_name | slugify }}">{{ tag_name }}</a>{% else %}<span>{{ tag_name }}</span>{% endif -%}
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}

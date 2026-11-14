@@ -1,0 +1,1131 @@
+/* ==========================================================================
+   CUSTOM CSS BY ME
+   ========================================================================== */
+
+/*
+   Visibility
+   ========================================================================== */
+
+.zoom{
+  /* default button */
+  
+  &:hover {
+    transform: scale(1.25);
+  }
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* overlay effect (full height and width) - lays on top of the container */
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .3s ease;
+  background-color: $dark-gray;
+}
+
+/* When you mouse over the container, fade in the overlay */
+.container:hover .overlay {
+  opacity: 0.25;
+}
+
+/*
+   Side Grid view (2 columns: image left, text right)
+   ========================================================================== */
+
+.side-grid__item {
+  margin-bottom: 2em;
+
+  .archive__item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2em;
+    align-items: start;
+  }
+
+  .archive__item-teaser {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    max-height: 400px;
+  }
+
+  .archive__item-title,
+  .page__meta,
+  .archive__item-excerpt {
+    grid-column: 2;
+  }
+
+  /* Stack on small screens */
+  @include breakpoint($small) {
+    .archive__item {
+      grid-template-columns: 1fr;
+      gap: 1em;
+    }
+
+    .archive__item-teaser {
+      grid-column: 1;
+      grid-row: auto;
+      max-height: 200px;
+    }
+
+    .archive__item-title,
+    .page__meta,
+    .archive__item-excerpt {
+      grid-column: 1;
+    }
+  }
+}
+
+/*
+   Publication year separators (al-folio style)
+   ========================================================================== */
+
+.pub-year {
+  margin: 2em 0 0.5em;
+  padding-top: 0.25em;
+  border-top: 1px solid $light-gray;
+  border-bottom: none;
+  text-align: right;
+  font-family: $sans-serif-narrow;
+  font-size: $type-size-3;
+  font-weight: 300;
+  color: mix(#fff, $gray, 25%);
+
+  + .list__item .archive__item-title {
+    margin-top: 0.5em;
+  }
+}
+
+/*
+   BibTeX citation box on the publications page
+   ========================================================================== */
+
+.bibtex-box {
+  position: relative;
+  max-width: 100%;
+  margin: 0 0 1em;
+
+  pre {
+    margin: 0;
+    padding: 1em;
+    padding-right: 5em;
+    overflow-x: auto;
+    font-size: $type-size-7;
+    line-height: 1.4;
+    background-color: $lighter-gray;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+  }
+}
+
+.bibtex-copy {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  padding: 0.25em 0.75em;
+  font-family: $sans-serif;
+  font-size: $type-size-7;
+  color: $text-color;
+  background-color: #fff;
+  border: 1px solid $light-gray;
+  border-radius: $border-radius;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $border-color;
+  }
+}
+
+/* BibTeX icon (inline SVG), sized and aligned like Font Awesome's fa-fw icons */
+.icon-bibtex {
+  display: inline-block;
+  width: 1.25em;
+  height: 1em;
+  vertical-align: -0.125em;
+  overflow: visible;
+  transition: transform 0.2s;
+}
+
+/*
+   Masthead tools: search button + dark/light toggle
+   ========================================================================== */
+
+.masthead__menu {
+  display: flex;
+  align-items: center;
+
+  #site-nav {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+}
+
+.masthead__tools {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.25em;
+  margin-left: 0.75em;
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    margin: 0;
+    padding: 0.35em 0.5em;
+    font-family: $sans-serif;
+    font-size: $type-size-5;
+    line-height: 1;
+    color: $masthead-link-color;
+    background: transparent;
+    border: 0;
+    border-radius: $border-radius;
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover,
+    &:focus-visible {
+      color: $link-color;
+    }
+  }
+
+  kbd {
+    display: none;
+    padding: 0.15em 0.4em;
+    font-family: $sans-serif;
+    font-size: $type-size-7;
+    color: $gray;
+    background: transparent;
+
+    @include breakpoint($medium) {
+      display: inline-block;
+    }
+  }
+}
+
+/* Show the moon in light mode and the sun in dark mode */
+.theme-toggle__sun { display: none; }
+html[data-theme="dark"] .theme-toggle__sun { display: inline-block; }
+html[data-theme="dark"] .theme-toggle__moon { display: none; }
+
+/*
+   Language menu (Language Icon + drop-down), _includes/lang-switcher.html
+   ========================================================================== */
+
+.lang-menu {
+  position: relative;
+
+  &__toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3em;
+    padding: 0.35em 0.5em;
+    font-family: $sans-serif;
+    font-size: $type-size-6;
+    font-weight: bold;
+    line-height: 1;
+    color: $masthead-link-color;
+    border-radius: $border-radius;
+    list-style: none;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.2s;
+
+    &::-webkit-details-marker { display: none; }
+    &::marker { content: ""; }
+
+    &:hover,
+    &:focus-visible {
+      color: $link-color;
+    }
+  }
+
+  .icon-language {
+    width: 1.6em;
+    height: 1.6em;
+  }
+
+  &[open] > &__toggle {
+    color: $link-color;
+  }
+
+  &__list {
+    position: absolute;
+    top: calc(100% + 0.35em);
+    right: 0;
+    z-index: 30; // above the masthead (z-index 20)
+    min-width: 9em;
+    margin: 0;
+    padding: 0.35em 0;
+    list-style: none;
+    font-family: $sans-serif;
+    font-size: $type-size-6;
+    background: $background-color;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    box-shadow: 0 6px 20px rgba(#000, 0.12);
+
+    li {
+      margin: 0;
+    }
+
+    a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1em;
+      padding: 0.45em 1em;
+      color: $text-color;
+      text-decoration: none;
+      white-space: nowrap;
+
+      &:hover,
+      &:focus-visible {
+        color: $link-color;
+        background: $lighter-gray;
+      }
+
+      &.is-current {
+        font-weight: bold;
+
+        &::after {
+          content: "✓";
+          color: $link-color;
+        }
+      }
+    }
+  }
+}
+
+/*
+   Search modal (Ctrl+K)
+   ========================================================================== */
+
+body.search-open-body {
+  overflow: hidden;
+}
+
+.search-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 10vh 16px 16px;
+
+  &[hidden] {
+    display: none;
+  }
+
+  &__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(#000, 0.4);
+  }
+
+  &__dialog {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 640px;
+    max-height: 75vh;
+    font-family: $sans-serif;
+    background: #fff;
+    border: 1px solid $border-color;
+    border-radius: 2 * $border-radius;
+    box-shadow: 0 10px 40px rgba(#000, 0.2);
+    overflow: hidden;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
+    padding: 0.75em 1em;
+    color: $gray;
+    border-bottom: 1px solid $border-color;
+  }
+
+  &__input {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+    padding: 0.25em 0;
+    font-size: $type-size-4;
+    color: $text-color;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+
+    &:focus {
+      border: 0;
+      box-shadow: none;
+    }
+  }
+
+  &__close {
+    flex: 0 0 auto;
+    padding: 0.2em 0.5em;
+    font-size: $type-size-7;
+    color: $gray;
+    background: transparent;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    cursor: pointer;
+  }
+
+  &__status {
+    margin: 0;
+    padding: 0 1em;
+    font-size: $type-size-6;
+    color: $gray;
+
+    &:not(:empty) {
+      padding: 0.75em 1em;
+    }
+  }
+
+  &__results {
+    flex: 1 1 auto;
+    margin: 0;
+    padding: 0.5em;
+    list-style: none;
+    overflow-y: auto;
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  &__item {
+    margin: 0;
+
+    > a {
+      display: block;
+      padding: 0.6em 0.75em;
+      color: inherit;
+      text-decoration: none;
+      border-radius: $border-radius;
+    }
+
+    &.is-active > a {
+      background: $lighter-gray;
+    }
+  }
+
+  &__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1em;
+  }
+
+  &__title {
+    font-size: $type-size-5;
+    font-weight: 600;
+    color: $text-color;
+  }
+
+  &__type {
+    flex: 0 0 auto;
+    padding: 0.1em 0.5em;
+    font-size: $type-size-8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: $gray;
+    background: $lighter-gray;
+    border-radius: $border-radius;
+  }
+
+  &__snippet {
+    display: block;
+    margin-top: 0.25em;
+    font-size: $type-size-6;
+    line-height: 1.4;
+    color: $gray;
+  }
+
+  mark {
+    padding: 0;
+    color: inherit;
+    background: rgba($link-color, 0.2);
+  }
+
+  &__footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25em;
+    padding: 0.6em 1em;
+    font-size: $type-size-7;
+    color: $gray;
+    border-top: 1px solid $border-color;
+
+    kbd {
+      font-size: 1em;
+    }
+
+    @include breakpoint(max-width $small) {
+      display: none;
+    }
+  }
+}
+
+/*
+   Home page (al-folio style), see _layouts/about.html
+   ========================================================================== */
+
+.page.about {
+  float: none;
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0;
+
+  @include breakpoint($large) {
+    float: none;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  h2 {
+    margin: 0 0 0.75em;
+    padding-bottom: 0.35em;
+    font-size: $type-size-4;
+    font-weight: 400;
+    border-bottom: 1px solid $border-color;
+  }
+}
+
+.about__header {
+  margin-bottom: 1.5em;
+}
+
+.about__name {
+  margin: 0;
+  font-size: $type-size-1;
+  font-weight: 300;
+  line-height: 1.1;
+
+  strong {
+    font-weight: 700;
+  }
+}
+
+.about__subtitle {
+  margin: 0.4em 0 0;
+  font-size: $type-size-5;
+  color: mix(#fff, $gray, 10%);
+}
+
+/*
+   Hashtags (_includes/hashtags.html)
+   "plain": inline under the About subtitle; "lines": centred between two
+   horizontal lines (al-folio blog style).
+   ========================================================================== */
+
+.hashtags {
+  margin: 0.6em 0 0;
+  font-family: $sans-serif;
+  font-size: $type-size-6;
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35em 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3em;
+    margin: 0;
+    color: $text-color;
+
+    // "•" between tags
+    & + li::before {
+      content: "•";
+      margin: 0 0.75em;
+      color: $light-gray;
+    }
+  }
+
+  .fa-hashtag {
+    font-size: 0.85em;
+    color: $link-color;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      color: $link-color;
+    }
+  }
+
+  &--lines {
+    margin: 1.5em 0;
+    padding: 0.75em 0;
+    border-top: 1px solid $border-color;
+    border-bottom: 1px solid $border-color;
+
+    ul {
+      justify-content: center;
+    }
+  }
+}
+
+/* al-folio style: the photo floats right and the bio text wraps around and
+   under it, so a long bio leaves no empty space below the photo. */
+.about__intro {
+  margin-bottom: 2.5em;
+
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+.about__bio {
+  p:first-child {
+    margin-top: 0;
+  }
+}
+
+.about__photo {
+  float: right;
+  width: 36%;
+  max-width: 340px;
+  margin: 0.3em 0 1em 2em;
+  text-align: center;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 2 * $border-radius;
+    box-shadow: 0 4px 16px rgba(#000, 0.15);
+  }
+
+  figcaption {
+    margin-top: 0.6em;
+    text-align: center;
+  }
+
+  /* phones: photo centred above the text */
+  @include breakpoint(max-width $medium) {
+    float: none;
+    width: auto;
+    max-width: 260px;
+    margin: 0 auto 1.25em;
+  }
+}
+
+.about__section {
+  margin-bottom: 2.5em;
+}
+
+.about__news {
+  table {
+    display: table;
+    width: 100%;
+    margin: 0;
+    border: 0;
+    font-size: $type-size-5;
+  }
+
+  th,
+  td {
+    padding: 0.45em 0;
+    vertical-align: top;
+    text-align: left;
+    border: 0;
+    border-bottom: 1px solid $border-color;
+  }
+
+  tr:last-child th,
+  tr:last-child td {
+    border-bottom: 0;
+  }
+
+  th {
+    width: 9em;
+    padding-right: 1.5em;
+    font-weight: 600;
+    white-space: nowrap;
+    color: mix(#fff, $gray, 10%);
+  }
+
+  @include breakpoint(max-width $small) {
+    th,
+    td {
+      display: block;
+      width: auto;
+      border-bottom: 0;
+    }
+
+    th {
+      padding-bottom: 0;
+    }
+
+    tr {
+      display: block;
+      padding: 0.35em 0;
+      border-bottom: 1px solid $border-color;
+    }
+  }
+}
+
+.about__latest {
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    display: flex;
+    gap: 1.5em;
+    padding: 0.45em 0;
+    border-bottom: 1px solid $border-color;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+
+  em {
+    display: block;
+    font-size: $type-size-6;
+    color: mix(#fff, $gray, 10%);
+  }
+}
+
+.about__latest-date {
+  flex: 0 0 auto;
+  min-width: 3.5em;
+  font-weight: 600;
+  color: mix(#fff, $gray, 10%);
+}
+
+.about__more {
+  margin: 0.5em 0 0;
+  font-size: $type-size-6;
+  text-align: right;
+}
+
+.about__contact {
+  address {
+    margin-bottom: 1em;
+    font-style: normal;
+  }
+}
+
+.about__contact-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 55%);
+  gap: 1.5em;
+  align-items: start;
+
+  @include breakpoint(max-width $medium) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.about__contact-text address {
+  margin-bottom: 0;
+}
+
+.about__map {
+  display: block;
+  width: 100%;
+  height: 320px;
+  border-radius: $border-radius;
+  box-shadow: 0 2px 10px rgba(#000, 0.15);
+}
+
+.about__social {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4em 1.1em;
+  margin: 2em 0 0.5em;
+  font-size: 2em;
+
+  a {
+    color: $gray;
+    text-decoration: none;
+    transition: color 0.2s, transform 0.2s;
+
+    &:hover,
+    &:focus-visible {
+      color: $link-color;
+      transform: scale(1.1);
+    }
+  }
+}
+
+.about__social-note {
+  margin: 0 0 2em;
+  font-size: $type-size-6;
+  text-align: center;
+  color: $gray;
+}
+
+/*
+   CV page (al-folio style boxes), see _includes/cv.html and _data/cv.yml
+   ========================================================================== */
+
+.page__title-pdf {
+  float: right;
+  margin-left: 0.5em;
+  font-size: 0.8em;
+  color: $gray;
+  text-decoration: none;
+  transition: color 0.2s, transform 0.2s;
+
+  &:hover,
+  &:focus-visible {
+    color: $link-color;
+    transform: scale(1.1);
+  }
+}
+
+.cv-card {
+  margin: 0 0 1.5em;
+  padding: 1.1em 1.25em 1.25em;
+  background: #fff;
+  border: 1px solid $border-color;
+  border-radius: 2 * $border-radius;
+  box-shadow: 0 1px 4px rgba(#000, 0.06);
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+.cv-card__title {
+  margin: 0 0 0.75em;
+  padding: 0;
+  font-size: $type-size-4;
+  border-bottom: 0;
+
+  i {
+    color: $link-color;
+  }
+}
+
+.cv-badge {
+  display: inline-block;
+  padding: 0.3em 0.6em;
+  font-size: $type-size-7;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  background-color: $link-color;
+  border-radius: $border-radius;
+}
+
+.cv-timeline {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  > li {
+    display: grid;
+    grid-template-columns: 10em minmax(0, 1fr);
+    gap: 1em;
+    padding: 0.85em 0;
+    border-bottom: 1px solid $border-color;
+
+    &:first-child {
+      padding-top: 0;
+    }
+
+    &:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    @include breakpoint(max-width $small) {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.4em;
+    }
+  }
+}
+
+.cv-timeline__when {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35em;
+}
+
+.cv-timeline__location {
+  font-size: $type-size-7;
+  color: $gray;
+}
+
+.cv-timeline__title {
+  margin: 0;
+  font-size: $type-size-5;
+}
+
+.cv-timeline__institution {
+  margin: 0.1em 0 0;
+  font-size: $type-size-6;
+  font-style: italic;
+  color: $gray;
+}
+
+.cv-timeline__description {
+  margin: 0.4em 0 0;
+  padding-left: 1.2em;
+  font-size: $type-size-6;
+
+  li {
+    margin: 0;
+  }
+}
+
+.cv-map {
+  display: table;
+  width: 100%;
+  margin: 0;
+  border: 0;
+  font-size: $type-size-6;
+
+  th,
+  td {
+    padding: 0.4em 0;
+    text-align: left;
+    vertical-align: top;
+    border: 0;
+    border-bottom: 1px solid $border-color;
+  }
+
+  tr:last-child th,
+  tr:last-child td {
+    border-bottom: 0;
+  }
+
+  th {
+    width: 10em;
+    padding-right: 1em;
+    font-weight: 600;
+  }
+}
+
+.cv-text p,
+.cv-list,
+.cv-note,
+.cv-pub {
+  font-size: $type-size-6;
+}
+
+.cv-list {
+  margin: 0;
+  padding-left: 1.2em;
+
+  li {
+    margin-bottom: 0.4em;
+  }
+}
+
+.cv-note {
+  margin: 0 0 1em;
+  color: $gray;
+}
+
+.cv-pub {
+  margin: 0;
+}
+
+.cv-pub__link {
+  font-size: $type-size-7;
+  word-break: break-all;
+}
+
+.cv-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35em;
+}
+
+.cv-tag {
+  padding: 0.15em 0.6em;
+  font-size: $type-size-7;
+  background: $lighter-gray;
+  border: 1px solid $border-color;
+  border-radius: 1em;
+}
+
+.cv-dots {
+  display: inline-flex;
+  gap: 0.3em;
+  vertical-align: middle;
+}
+
+.cv-dot {
+  width: 0.75em;
+  height: 0.75em;
+  background: $lighter-gray;
+  border: 1px solid $light-gray;
+  border-radius: 50%;
+
+  &.is-on {
+    background: $link-color;
+    border-color: $link-color;
+  }
+}
+
+.cv-table-wrap {
+  overflow-x: auto;
+}
+
+.cv-table {
+  display: table;
+  width: 100%;
+  margin: 0;
+  font-size: $type-size-7;
+
+  th,
+  td {
+    padding: 0.35em 0.6em;
+  }
+
+  th {
+    text-align: left;
+  }
+}
+
+/*
+   Research page: "text | small image" topics, see _includes/research-topics.html
+   ========================================================================== */
+
+.research-topic {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(160px, 28%);
+  gap: 1.5em;
+  align-items: start;
+  padding: 1.25em 0;
+  border-top: 1px solid $border-color;
+
+  &--no-image {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  h2 {
+    margin-top: 0;
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  @include breakpoint(max-width $medium) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.75em;
+  }
+}
+
+.research-topic__text > :last-child {
+  margin-bottom: 0;
+}
+
+.research-topic__more {
+  font-size: $type-size-6;
+}
+
+.research-topic__img {
+  margin: 0;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: $border-radius;
+    box-shadow: 0 2px 10px rgba(#000, 0.15);
+  }
+
+  a {
+    border: 0;
+  }
+
+  figcaption {
+    margin-top: 0.4em;
+    text-align: center;
+    color: $gray;
+  }
+
+  @include breakpoint(max-width $medium) {
+    max-width: 320px;
+  }
+}
+
+/* One-line footer */
+.page__footer-copyright {
+  text-align: center;
+}
+
+/* Teaching page: workshop boxes (reuse the CV card styles) */
+.cv-timeline__duration {
+  font-size: $type-size-7;
+  color: $gray;
+}
+
+.cv-card h3.cv-timeline__title {
+  margin: 0;
+}
+
+.workshop-card__note,
+.workshop-card__link {
+  margin: 0.5em 0 0;
+  font-size: $type-size-6;
+}
+
+.workshop-card__note {
+  color: $gray;
+}
+
+/* Several PDF icons next to a page title (CV: EN / ES / FR) */
+.page__title-pdfs {
+  float: right;
+  display: inline-flex;
+  gap: 0.6em;
+
+  .page__title-pdf {
+    float: none;
+    margin-left: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2em;
+  }
+}
+
+.page__title-pdf-label {
+  font-size: 0.45em;
+  font-weight: 600;
+}

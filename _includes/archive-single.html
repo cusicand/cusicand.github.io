@@ -1,0 +1,127 @@
+{% assign tr = site.data.i18n[page.lang] | default: site.data.i18n.en %}
+{% include base_path %}
+
+{% if post.header.teaser %}
+  {% capture teaser %}{{ post.header.teaser }}{% endcapture %}
+{% else %}
+  {% assign teaser = site.teaser %}
+{% endif %}
+
+{% if post.id %}
+  {% assign title = post.title | markdownify | remove: "<p>" | remove: "</p>" %}
+{% else %}
+  {% assign title = post.title %}
+{% endif %}
+
+<div class="{{ include.type | default: "list" }}__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    {% if include.type == "grid" or include.type == "side-grid" and teaser %}
+      <div class="archive__item-teaser">
+        <img src=
+          {% if teaser contains "://" %}
+            "{{ teaser }}"
+          {% else %}
+            "{{ teaser | prepend: "/images/" | prepend: base_path }}"
+          {% endif %}
+          alt="">
+      </div>
+    {% endif %}
+
+    <h2 class="archive__item-title" itemprop="headline">
+      {% if post.collection == 'publications' %}
+        {{ title }}
+      {% elsif post.link %}
+        <a href="{{ post.link }}">{{ title }}</a> <a href="{{ base_path }}{{ post.url }}" rel="permalink"><i class="fa fa-link" aria-hidden="true" title="permalink"></i><span class="sr-only">Permalink</span></a>
+      {% else %}
+        <a href="{{ base_path }}{{ post.url }}" rel="permalink">{{ title }}</a>
+      {% endif %}
+    </h2>
+    
+    {% if post.read_time %}
+    {% elsif post.read_time and post.collection == 'posts' %}
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> {% include read-time.html %}</p>
+    {% endif %}
+
+    {% if post.collection == 'teaching' %}
+      <p> {{ post.type }}, <i>{{ post.venue }}</i>, {{ post.date | default: "1900-01-01" | date: "%Y" }} </p>
+    {% elsif post.collection == 'publications' %}
+      {% if post.abstract %}
+        <details><summary>Abstract</summary>
+        <blockquote>
+        <p>
+        {{ post.abstract }}
+        </p>
+        </blockquote>
+        </details>
+      {% endif %}
+      
+      <!-- citation and icon code -->
+      <p>
+      {% if post.citation %}
+        {{ post.citation }}
+      {% endif %}
+      <br>
+      {% if post.link %}
+        <a href="{{ post.link }}" title="{{ tr.article_doi }}"><i class="fas fa-fw fa-link zoom" aria-hidden="true"></i><span class="sr-only">{{ tr.article_doi }}</span></a>
+      {% endif %}
+      {% if post.paperurl %}
+        <a href="{{ post.paperurl }}" title="{{ tr.pdf }}"><i class="fas fa-fw fa-file-pdf zoom" aria-hidden="true"></i><span class="sr-only">{{ tr.pdf }}</span></a>
+      {% endif %}
+      {% if post.code %}
+        <a href="{{ post.code }}" title="{{ tr.code }}"><i class="fas fa-fw fa-code zoom" aria-hidden="true"></i><span class="sr-only">{{ tr.code }}</span></a>
+      {% endif %}
+      {% if post.github %}
+        <a href="{{ post.github }}" title="{{ tr.github_repo }}"><i class="fab fa-fw fa-github zoom" aria-hidden="true"></i><span class="sr-only">{{ tr.github_repo }}</span></a>
+      {% endif %}
+      {% if post.sup_material %}
+        <a href="{{ post.sup_material }}" title="{{ tr.data_material }}"><i class="fas fa-fw fa-database zoom" aria-hidden="true"></i><span class="sr-only">{{ tr.data_material }}</span></a>
+      {% endif %}
+      {% if post.video_url %}
+        <a href="{{ post.video_url }}" title="{{ tr.video }}"><i class="fab fa-fw fa-youtube zoom" aria-hidden="true"></i><span class="sr-only">{{ tr.video }}</span></a>
+      {% endif %}
+      {% if post.presentation %}
+        <a href="{{ post.presentation }}" title="{{ tr.presentation }}"><i class="fas fa-fw fa-chalkboard-teacher zoom" aria-hidden="true"></i><span class="sr-only">{{ tr.presentation }}</span></a>
+      {% endif %}
+      {% if post.poster %}
+        <a href="{{ post.poster }}" title="{{ tr.poster }}"><i class="fas fa-fw fa-scroll zoom" aria-hidden="true"></i><span class="sr-only">{{ tr.poster }}</span></a>
+      {% endif %}
+      {% assign bib_path = "/files/bibtex/" | append: post.slug | append: ".bib" %}
+      {% assign bib_file = site.static_files | where: "path", bib_path | first %}
+      {% if bib_file %}
+        <a href="{{ base_path }}{{ bib_path }}" class="bibtex-toggle" title="{{ tr.cite_bibtex }}">{% include icons/bibtex.svg %}<span class="sr-only">BibTeX</span></a>
+      {% endif %}
+      </p>
+      {% if bib_file %}
+        <div class="bibtex-box" hidden>
+          <button type="button" class="bibtex-copy" data-copied="{{ tr.copied }}">{{ tr.copy }}</button>
+          <pre></pre>
+        </div>
+      {% endif %}
+    {% elsif post.collection == 'posts' and post.date %}
+      <p class="page__date"><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="{{ post.date | default: "1900-01-01" | date_to_xmlschema }}">{{ post.date | default: "1900-01-01" | date: "%B %d, %Y" }}</time></p>
+    {% endif %}
+    
+    {% if post.excerpt and post.collection == 'research' and site.read_more != 'enabled' %}
+      <p class="archive__item-excerpt" itemprop="description">
+        <a href="{{ base_path }}{{ post.url }}" rel="permalink">
+        <div class="container">
+          {{ post.excerpt }}
+          <div class="overlay">
+          </div>
+        </div>
+        </a>
+      </p>
+    {% elsif post.excerpt and site.read_more != 'enabled' %}
+    <p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify }}</p>
+    {% elsif post.excerpt and site.read_more == 'enabled' %}
+      <p class="archive__item-excerpt" itemprop="description">
+        <p>{{ post.excerpt | markdownify | remove: '<p>' | remove: '</p>' }}
+          <strong>
+            <a href="{{ base_path }}{{ post.url }}" rel="permalink"> Read more</a>
+          </strong>
+        </p>
+      </p>
+    {% endif %}
+    
+  </article>
+</div>

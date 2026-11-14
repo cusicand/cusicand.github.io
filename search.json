@@ -1,0 +1,52 @@
+---
+layout: null
+sitemap: false
+search: false
+---
+{%- comment -%}
+  Search index for the Ctrl+K search (assets/js/site-tools.js).
+  Includes pages with a title (unless they set `search: false` or `sitemap: false`)
+  and the publications, research, posts and talks collections.
+  Liquid tags left in not-yet-rendered page sources are cut out with split.
+  Pages carry their `lang`; collection entries (papers, research pages) have none and show in every language.
+{%- endcomment -%}
+{%- assign docs = "" | split: "" -%}
+{%- for p in site.pages -%}
+  {%- if p.title and p.search != false and p.sitemap != false -%}{%- if p.path contains "backup_delete/" -%}{%- continue -%}{%- endif -%}
+    {%- assign docs = docs | push: p -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- assign collections = "publications,research,posts,talks" | split: "," -%}
+[
+{%- assign first = true -%}
+{%- for c in collections -%}
+  {%- assign items = site[c] -%}
+  {%- if c == "posts" -%}{%- assign items = site.posts -%}{%- endif -%}
+  {%- for d in items -%}
+    {%- if d.search == false -%}{%- continue -%}{%- endif -%}
+    {%- capture raw -%}{{ d.citation }} {{ d.abstract }} {{ d.content }}{%- endcapture -%}
+    {%- assign text = raw | strip_html | normalize_whitespace | truncatewords: 400 -%}
+    {%- case c -%}
+      {%- when "publications" -%}{%- assign type = "Publication" -%}
+      {%- when "research" -%}{%- assign type = "Research" -%}
+      {%- when "posts" -%}{%- assign type = "Post" -%}
+      {%- when "talks" -%}{%- assign type = "Talk" -%}
+    {%- endcase -%}
+    {%- unless first -%},{%- endunless -%}{%- assign first = false %}
+{"title":{{ d.title | strip_html | jsonify }},"url":{{ site.baseurl | append: d.url | jsonify }},"type":{{ type | jsonify }},"date":{% if d.date and c != "research" %}{{ d.date | date: "%Y" | jsonify }}{% else %}""{% endif %},"venue":{{ d.venue | default: "" | strip_html | jsonify }},"text":{{ text | jsonify }}}
+  {%- endfor -%}
+{%- endfor -%}
+{%- assign tag_open = "{" | append: "%" -%}
+{%- assign tag_close = "%" | append: "}" -%}
+{%- assign var_open = "{" | append: "{" -%}
+{%- assign var_close = "}" | append: "}" -%}
+{%- for p in docs -%}
+  {%- assign parts = p.content | split: tag_open -%}
+  {%- capture clean -%}{%- for part in parts -%}{%- if forloop.first -%}{{ part }}{%- else -%}{{ part | split: tag_close | last }}{%- endif -%}{%- endfor -%}{%- endcapture -%}
+  {%- assign parts = clean | split: var_open -%}
+  {%- capture clean -%}{%- for part in parts -%}{%- if forloop.first -%}{{ part }}{%- else -%}{{ part | split: var_close | last }}{%- endif -%}{%- endfor -%}{%- endcapture -%}
+  {%- assign text = clean | markdownify | strip_html | normalize_whitespace | truncatewords: 400 -%}
+  {%- unless first -%},{%- endunless -%}{%- assign first = false %}
+{"title":{{ p.title | strip_html | jsonify }},"url":{{ site.baseurl | append: p.url | jsonify }},"type":"Page","lang":{{ p.lang | default: site.default_lang | jsonify }},"date":"","venue":"","text":{{ text | jsonify }}}
+{%- endfor %}
+]

@@ -1,0 +1,28 @@
+{% assign tr = site.data.i18n[page.lang] | default: site.data.i18n.en %}
+{% comment %}
+  Large centred row of profile icons (al-folio style), built from the `author:` block of _config.yml.
+  Only fields that are filled in are shown. Same URL patterns as _includes/author-profile.html.
+{% endcomment %}
+{% assign a = site.author %}
+<div class="about__social">
+  {% if a.email %}<a href="mailto:{{ a.email }}" title="{{ tr.email }}"><i class="fas fa-envelope" aria-hidden="true"></i><span class="sr-only">{{ tr.email }}</span></a>{% endif %}
+  {% if a.orcid %}<a href="{{ a.orcid }}" title="ORCID"><i class="ai ai-orcid" aria-hidden="true"></i><span class="sr-only">ORCID</span></a>{% endif %}
+  {% if a.hal %}<a href="{{ a.hal }}" title="HAL"><i class="ai ai-hal" aria-hidden="true"></i><span class="sr-only">HAL</span></a>{% endif %}
+  {% if a.googlescholar %}<a href="{{ a.googlescholar }}" title="Google Scholar"><i class="ai ai-google-scholar" aria-hidden="true"></i><span class="sr-only">Google Scholar</span></a>{% endif %}
+  {% if a.researchgate %}<a href="{{ a.researchgate }}" title="ResearchGate"><i class="fab fa-researchgate" aria-hidden="true"></i><span class="sr-only">ResearchGate</span></a>{% endif %}
+  {% if a.pubmed %}<a href="{{ a.pubmed }}" title="PubMed"><i class="ai ai-pubmed" aria-hidden="true"></i><span class="sr-only">PubMed</span></a>{% endif %}
+  {% if a.github %}<a href="https://github.com/{{ a.github }}" title="GitHub"><i class="fab fa-github" aria-hidden="true"></i><span class="sr-only">GitHub</span></a>{% endif %}
+  {% if a.gitlab %}<a href="https://gitlab.com/{{ a.gitlab }}" title="GitLab"><i class="fab fa-gitlab" aria-hidden="true"></i><span class="sr-only">GitLab</span></a>{% endif %}
+  {% if a.bitbucket %}<a href="https://bitbucket.org/{{ a.bitbucket }}" title="Bitbucket"><i class="fab fa-bitbucket" aria-hidden="true"></i><span class="sr-only">Bitbucket</span></a>{% endif %}
+  {% if a.stackoverflow %}<a href="https://www.stackoverflow.com/users/{{ a.stackoverflow }}" title="Stack Overflow"><i class="fab fa-stack-overflow" aria-hidden="true"></i><span class="sr-only">Stack Overflow</span></a>{% endif %}
+  {% if a.linkedin %}<a href="https://www.linkedin.com/in/{{ a.linkedin }}" title="LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i><span class="sr-only">LinkedIn</span></a>{% endif %}
+  {% if a.twitter %}<a href="https://twitter.com/{{ a.twitter }}" title="Twitter / X"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Twitter</span></a>{% endif %}
+  {% if a.mastodon %}<a rel="me" href="https://{{ a.mastodon }}" title="Mastodon"><i class="fab fa-mastodon" aria-hidden="true"></i><span class="sr-only">Mastodon</span></a>{% endif %}
+  {% if a.facebook %}<a href="https://www.facebook.com/{{ a.facebook }}" title="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Facebook</span></a>{% endif %}
+  {% if a.instagram %}<a href="https://instagram.com/{{ a.instagram }}" title="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i><span class="sr-only">Instagram</span></a>{% endif %}
+  {% if a.youtube %}<a href="https://www.youtube.com/user/{{ a.youtube }}" title="YouTube"><i class="fab fa-youtube" aria-hidden="true"></i><span class="sr-only">YouTube</span></a>{% endif %}
+  {% if a.flickr %}<a href="https://www.flickr.com/{{ a.flickr }}" title="Flickr"><i class="fab fa-flickr" aria-hidden="true"></i><span class="sr-only">Flickr</span></a>{% endif %}
+  {% if a.keybase %}<a href="https://keybase.io/{{ a.keybase }}" title="Keybase"><i class="fas fa-key" aria-hidden="true"></i><span class="sr-only">Keybase</span></a>{% endif %}
+  {% if a.uri %}<a href="{{ a.uri }}" title="{{ tr.website }}"><i class="fas fa-link" aria-hidden="true"></i><span class="sr-only">{{ tr.website }}</span></a>{% endif %}
+</div>
+{% if include.note and include.note != "" %}<p class="about__social-note">{{ include.note | markdownify | remove: "<p>" | remove: "</p>" }}</p>{% endif %}

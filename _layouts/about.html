@@ -1,0 +1,80 @@
+---
+layout: default
+---
+{% assign tr = site.data.i18n[page.lang] | default: site.data.i18n.en %}
+{% comment %}
+  Home page layout (al-folio style). Used only by _pages/about.md.
+  Sections: name header, bio + photo, news (_data/news.yml),
+  latest posts (hidden while there are none), contact, social icons (_config.yml author block).
+{% endcomment %}
+{% include base_path %}
+
+{% assign name_parts = site.author.name | default: site.name | split: " " %}
+{% assign about_photo = site.static_files | where: "path", "/images/about-photo.jpg" | first %}
+{% if about_photo %}
+  {% assign photo_src = "/images/about-photo.jpg" %}
+{% else %}
+  {% assign photo_src = "/images/profile-web.jpg" %}
+{% endif %}
+
+<div id="main" role="main" class="about-main">
+  <article class="page about" itemscope itemtype="http://schema.org/Person">
+
+    <header class="about__header">
+      <h1 class="about__name" itemprop="name">
+        <strong>{{ name_parts | join: " " }}</strong>
+      </h1>
+      {% if page.subtitle %}<p class="about__subtitle">{{ page.subtitle | markdownify | remove: "<p>" | remove: "</p>" }}</p>{% endif %}
+      {% include hashtags.html tags=page.hashtags %}
+    </header>
+
+    <div class="about__intro">
+      <figure class="about__photo">
+        <img src="{{ base_path }}{{ photo_src }}" alt="{{ tr.photo_of }} {{ site.author.name }}" itemprop="image">
+        {% if page.photo_caption %}<figcaption>{{ page.photo_caption | markdownify | remove: "<p>" | remove: "</p>" }}</figcaption>{% endif %}
+      </figure>
+      <div class="about__bio" itemprop="description">
+        {{ content }}
+      </div>
+    </div>
+
+    {% if site.data.news and site.data.news.size > 0 %}
+      {% assign news = site.data.news | sort: "date" | reverse %}
+      {% assign news_limit = page.news_limit | default: 3 %}
+      <section class="about__section about__news">
+        <h2>{{ tr.news }}</h2>
+        <table>
+          <tbody>
+            {% for item in news limit: news_limit %}
+              <tr>
+                <th scope="row"><time datetime="{{ item.date | date: '%Y-%m-%d' }}">{% include localized-date.html date=item.date %}</time></th>
+                {% if item.text.en %}{% assign item_text = item.text[page.lang] | default: item.text.en %}{% else %}{% assign item_text = item.text %}{% endif %}
+                <td>{{ item_text | markdownify | remove: "<p>" | remove: "</p>" }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </section>
+    {% endif %}
+
+    {% if site.posts.size > 0 %}
+      <section class="about__section about__latest">
+        <h2>{{ tr.latest_posts }}</h2>
+        <ul>
+          {% for post in site.posts limit: 3 %}
+            <li>
+              <span class="about__latest-date">{% include localized-date.html date=post.date %}</span>
+              <span class="about__latest-text"><a href="{{ base_path }}{{ post.url }}">{{ post.title }}</a></span>
+            </li>
+          {% endfor %}
+        </ul>
+        <p class="about__more"><a href="{{ base_path }}/posts/">{{ tr.all_posts }} &rarr;</a></p>
+      </section>
+    {% endif %}
+
+    {% include about-contact.html %}
+
+    {% include social-icons-row.html note=page.social_note %}
+
+  </article>
+</div>
