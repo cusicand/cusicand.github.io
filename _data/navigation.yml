@@ -1,0 +1,57 @@
+# main links links
+main:
+  - title: "Publications"
+    url: /publications/
+    
+  - title: "Research"
+    url: /research/
+
+  - title: "Teaching"
+    url: /teaching/
+
+  - title: "Supervision"
+    url: /supervision/
+
+  - title: "Software"
+    url: /software/
+
+  - title: "Posts"
+    url: /posts/
+    
+  - title: "CV"
+    url: /cv/
+
+
+# Spanish and French menus (the English one is `main` above).
+# Pages without a translation (Posts) point to the English page.
+es:
+  - title: "Publicaciones"
+    url: /es/publications/
+  - title: "Investigación"
+    url: /es/research/
+  - title: "Docencia"
+    url: /es/teaching/
+  - title: "Supervisión"
+    url: /es/supervision/
+  - title: "Software"
+    url: /es/software/
+  - title: "Entradas"
+    url: /posts/
+  - title: "CV"
+    url: /es/cv/
+
+fr:
+  - title: "Publications"
+    url: /fr/publications/
+  - title: "Recherche"
+    url: /fr/research/
+  - title: "Enseignement"
+    url: /fr/teaching/
+  - title: "Encadrement"
+    url: /fr/supervision/
+  - title: "Logiciels"
+    url: /fr/software/
+  - title: "Articles"
+    url: /posts/
+  - title: "CV"
+    url: /fr/cv/

@@ -1,0 +1,40 @@
+# News items shown on the home page (sorted by date, newest first).
+# Each item: date (YYYY-MM-DD) and text in the three languages (Markdown: **bold**, *italic*, [links](https://...)).
+# A plain `text: "..."` (one language) also works: it is then shown on every language version.
+# The home page shows the newest `news_limit` items (set in _pages/about.md).
+# translation: draft  (es/fr drafted by Claude: review them)
+- date: 2026-11-20
+  text:
+    en: "New preprint on transitional rock glaciers in the French Alps. [Are transitional rock glaciers degraded permafrost landforms?](https://doi.org/xxxx.xxx/yyyyyyyyy), submitted to *The Cryosphere*."
+    es: "Nuevo preprint sobre glaciares rocosos de transición en los Alpes franceses. [¿Son los glaciares rocosos de transición formas degradadas de permafrost?](https://doi.org/xxxx.xxx/yyyyyyyyy), enviado a *The Cryosphere*."
+    fr: "Nouveau preprint sur les glaciers rocheux de transition dans les Alpes françaises. [Les glaciers rocheux de transition sont-ils des formes de pergélisol dégradées ?](https://doi.org/xxxx.xxx/yyyyyyyyy), soumis à *The Cryosphere*."
+
+- date: 2026-03-10
+  text:
+    en: "New paper published on the Vallunaraju cascade event of April 2025 (Peru): [*Small event, big impact*](https://doi.org/10.1038/s44304-026-00229-0), submitted to *npj Natural Hazards*."
+    es: "Nuevo artículo publicado sobre el evento en cascada del Vallunaraju de abril de 2025 (Perú): [*Small event, big impact*](https://doi.org/10.1038/s44304-026-00229-0), enviado a *npj Natural Hazards*."
+    fr: "Nouvel article publié sur l'événement en cascade du Vallunaraju d'avril 2025 (Pérou) : [*Small event, big impact*](https://doi.org/10.1038/s44304-026-00229-0), soumis à *npj Natural Hazards*."
+
+- date: 2026-03-06
+  text:
+    en: "New preprint on the drivers of the June 2024 debris flood in La Bérarde, French Alps: [read it on EGUsphere](https://doi.org/10.5194/egusphere-2026-971)."
+    es: "Nuevo preprint sobre los factores de la crecida de detritos de junio de 2024 en La Bérarde, Alpes franceses: [léalo en EGUsphere](https://doi.org/10.5194/egusphere-2026-971)."
+    fr: "Nouveau preprint sur les facteurs de la crue torrentielle de juin 2024 à La Bérarde, Alpes françaises : [à lire sur EGUsphere](https://doi.org/10.5194/egusphere-2026-971)."
+
+- date: 2026-03-04
+  text:
+    en: "New preprint on seasonal biases in glacier surface flow velocities from optical satellite images: [read it on EGUsphere](https://doi.org/10.5194/egusphere-2026-946)."
+    es: "Nuevo preprint sobre los sesgos estacionales en las velocidades de flujo superficial de los glaciares medidas con imágenes satelitales ópticas: [léalo en EGUsphere](https://doi.org/10.5194/egusphere-2026-946)."
+    fr: "Nouveau preprint sur les biais saisonniers des vitesses d'écoulement de surface des glaciers mesurées par images satellitaires optiques : [à lire sur EGUsphere](https://doi.org/10.5194/egusphere-2026-946)."
+
+- date: 2026-01-15
+  text:
+    en: "Paper published in *Earth Surface Processes and Landforms* on the activity of transitional rock glaciers in the French Alps: [read it here](https://doi.org/10.1002/esp.70243)."
+    es: "Artículo publicado en *Earth Surface Processes and Landforms* sobre la actividad de los glaciares rocosos de transición en los Alpes franceses: [léalo aquí](https://doi.org/10.1002/esp.70243)."
+    fr: "Article publié dans *Earth Surface Processes and Landforms* sur l'activité des glaciers rocheux de transition dans les Alpes françaises : [à lire ici](https://doi.org/10.1002/esp.70243)."
+
+- date: 2026-01-07
+  text:
+    en: "Paper published in *Annals of Glaciology*: [*In memory of Kari-Huayra-Razu*](https://doi.org/10.1017/aog.2025.10036), a recently disappeared ice cap in the inner tropics."
+    es: "Artículo publicado en *Annals of Glaciology*: [*In memory of Kari-Huayra-Razu*](https://doi.org/10.1017/aog.2025.10036), un casquete glaciar recientemente desaparecido en el trópico interior."
+    fr: "Article publié dans *Annals of Glaciology* : [*In memory of Kari-Huayra-Razu*](https://doi.org/10.1017/aog.2025.10036), une calotte glaciaire récemment disparue des tropiques internes."
