@@ -1,0 +1,53 @@
+# ---------------------------------------------------------------------------
+# Jekyll build output and caches
+# ---------------------------------------------------------------------------
+_site/
+.jekyll-cache/
+.jekyll-metadata
+.sass-cache/
+.asset-cache/
+
+# ---------------------------------------------------------------------------
+# Installed dependencies
+# ---------------------------------------------------------------------------
+# (root only: _sass/vendor/ and assets/js/vendor/ are theme files and MUST be committed)
+/.bundle/
+/vendor/
+/node_modules/
+
+# ---------------------------------------------------------------------------
+# Local-only sources and tools (not part of the website)
+# ---------------------------------------------------------------------------
+# CV sources (LaTeX/YAML with personal data)
+# The generated _data/cv.yml, supervision.yml, workshops.yml and the PDFs ARE committed.
+_cv/
+
+# Publication/talk generators and their CSV/TSV (run locally)
+/markdown_generator/
+
+# HAL deposit tool: personal settings and generated previews
+_hal_deposit/
+__pycache__/
+
+# Template docs removed from the site
+/CHANGELOG.md
+/CONTRIBUTING.md
+
+# Claude Code
+CLAUDE.md
+.claude
+
+# ---------------------------------------------------------------------------
+# Editor / OS clutter
+# ---------------------------------------------------------------------------
+.Rproj.user/
+.Rhistory
+.DS_Store
+Thumbs.db
+*~
+*.swp
+
+# ---------------------------------------------------------------------------
+# VScode settings
+# ---------------------------------------------------------------------------
+.vscode/
